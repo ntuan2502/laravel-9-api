@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FacultyController;
 use App\Models\CloudinaryUpload;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -69,3 +71,34 @@ Route::post('/upload', function (Request $request) {
         'data' => $data,
     ]);
 });
+
+Route::prefix('departments')->group(function () {
+    Route::get('/', [DepartmentController::class, 'index']);
+    // Route::get('/new', [DepartmentController::class, 'create']);
+    Route::post('/', [DepartmentController::class, 'store']);
+    Route::get('/{department}', [DepartmentController::class, 'show']);
+    // Route::get('/{department}/edit', [DepartmentController::class, 'edit']);
+    Route::match(['post','put', 'patch'], '/{department}', [DepartmentController::class, 'update']);
+    Route::delete('/{department}', [DepartmentController::class, 'destroy']);
+});
+
+Route::prefix('faculties')->group(function () {
+    Route::get('/', [FacultyController::class, 'index']);
+    // Route::get('/new', [FacultyController::class, 'create']);
+    Route::post('/', [FacultyController::class, 'store']);
+    Route::get('/{faculty}', [FacultyController::class, 'show']);
+    // Route::get('/{faculty}/edit', [FacultyController::class, 'edit']);
+    Route::match(['post','put', 'patch'], '/{faculty}', [FacultyController::class, 'update']);
+    Route::delete('/{faculty}', [FacultyController::class, 'destroy']);
+});
+
+Route::prefix('doctors')->group(function () {
+    Route::get('/', [DoctorController::class, 'index']);
+    // Route::get('/new', [DoctorController::class, 'create']);
+    Route::post('/', [DoctorController::class, 'store']);
+    Route::get('/{doctor}', [DoctorController::class, 'show']);
+    // Route::get('/{doctor}/edit', [DoctorController::class, 'edit']);
+    Route::match(['post','put', 'patch'], '/{doctor}', [DoctorController::class, 'update']);
+    Route::delete('/{doctor}', [DoctorController::class, 'destroy']);
+});
+
